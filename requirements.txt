@@ -1,1 +1,3 @@
-//all requiremnts to be listed down here
+pandas==2.1.4
+selenium==4.16.0
+webdriver_manager==4.0.1

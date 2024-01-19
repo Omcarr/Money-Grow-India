@@ -1,7 +1,3 @@
-#loop through the csv
-#make folder for each client
-#add client names in client id and name in client dictionary
-
 import pandas
 #from pprint import pprint
 # pprint(client_dict,indent=4)
@@ -17,5 +13,3 @@ def GetDatafromCSV(path):
         cd[client_id[i]]=client_names[i]
     
     return cd
-
-#pprint(GetDatafromCSV(path="D:\Omkar\MCI data\MONEYGROW1_ClientMaster.csv"),indent=4)
