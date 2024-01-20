@@ -8,7 +8,7 @@ from FileSorting import move_files
 
 
 def PreDownload():
-    #Folder should not have any data initally
+    # Folder should not have any data initally
     JUNK_DATA = os.listdir(download_loc)
     if JUNK_DATA:
         print('\nPlease empty the Download folder\n')
@@ -40,119 +40,54 @@ def PreDownload():
 
     return client_dict
 
-
-def chunk(BeginAt, end, id_list, client_dict, start_date, end_date, CustomDate):
+def chunk(BeginAt, end, client_dict, start_date, end_date, CustomDate):
     Bot = Features()
     Bot.login()
     for i in range(BeginAt, end):
-        Bot.FactSheet(client_id=id_list[i])
-        Bot.CurrentPortfolio(client_id=id_list[i])
+        Bot.FactSheet(client_id=i)
+        Bot.CurrentPortfolio(client_id=i)
         Bot.TransactionStatement(
-            client_id=id_list[i], start_date=start_date, end_date=end_date, CustomDate=CustomDate)
-        Bot.BankBook(client_id=id_list[i], start_date=start_date,
+            client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+        Bot.BankBook(client_id=i, start_date=start_date,
                      end_date=end_date, CustomDate=CustomDate)
         Bot.StatementOfDividend(
-            client_id=id_list[i], start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+            client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
         Bot.StatementOfExpense(
-            client_id=id_list[i], start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+            client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
         Bot.CaptialGainLoss(
-            client_id=id_list[i], start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+            client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
         time.sleep(5)
         move_files(source_folder=download_loc,
-                   client_id=id_list[i], client_name=client_dict[id_list[i]])
+                   client_id=i, client_name=client_dict[i])
     Bot.EndTask()
 
 
-def RegularDownload(start_date, end_date, CustomDate):
+def RegularDownload(BeginAt, start_date, end_date, CustomDate):
     client_dict = PreDownload()
     id_list = []
     for key in client_dict.keys():
         id_list.append(key)
 
-    # dividing codes into chunks to minimse website server overloading cases
-    chunk_size = 10
-    num_chunks = len(id_list) // chunk_size
-
-    for n in range(num_chunks):
-        BeginAt = n * chunk_size
-        end = (n + 1) * chunk_size
-        chunk(BeginAt, end, id_list, client_dict,
-              start_date, end_date, CustomDate=CustomDate)
-
-    # Handling remaining clients
-    if num_chunks * chunk_size < len(id_list):
-        BeginAt = num_chunks * chunk_size
-        end = len(id_list)
-        chunk(BeginAt, end, id_list, client_dict,
-              start_date, end_date, CustomDate=CustomDate)
-
-
-# def CustomDownload(BeginAt, start_date, end_date, CustomDate):
-#     client_dict = PreDownload()
-#     id_list = []
-#     for key in client_dict.keys():
-#         id_list.append(key)
-
-#     chunk(BeginAt=BeginAt, end=len(id_list),
-#           id_list=id_list, client_dict=client_dict, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+    chunk(BeginAt=BeginAt, end=id_list[-1], client_dict=client_dict,
+          start_date=start_date, end_date=end_date, CustomDate=CustomDate)
 
 
 def choice():
-    print(datetime.now(),end='\n\n')
-    download_type = input(
-        '\nEnter 1] for Regular download\n\t2] for Custom Date Regular download\n')
-
-    if download_type == '1':
-        current_datetime = datetime.now()
-        end_date = current_datetime.strftime("%d/%m/%Y")
-        curr_month = current_datetime.strftime("%m")
-        curr_year = current_datetime.strftime("%y")
-
-        if int(curr_month) >= 4:
-            start_date = f'01/04/{curr_year}'
-        else:
-            start_date = f'01/04/{int(curr_year)-1}'
-
-        CustomDate = False
-        RegularDownload(start_date=start_date,
-                        end_date=end_date, CustomDate=CustomDate)
-
-    # elif download_type == '2':
-    #     current_datetime = datetime.now()
-    #     end_date = current_datetime.strftime("%d/%m/%Y")
-    #     curr_month = current_datetime.strftime("%m")
-    #     curr_year = current_datetime.strftime("%y")
-    #     if int(curr_month) >= 4:
-    #         start_date = f'01/04/{curr_year}'
-    #     else:
-    #         start_date = f'01/04/{int(curr_year)-1}'
-
-    #     CustomDate = False
-    #     A = int(input('Enter the Last significant digits of the Client ID:\n'))
-    #     CustomDownload(BeginAt=A-1, start_date=start_date,
-    #                    end_date=end_date, CustomDate=CustomDate)
-
-    elif download_type == '2':
-        start_date = input("\nEnter the start date (format: DD/MM/YYYY): ")
-        end_date = input("\nEnter the end date (format: DD/MM/YYYY): ")
-        CustomDate = True
-        RegularDownload(start_date=start_date,
-                        end_date=end_date, CustomDate=CustomDate)
-
-    # elif download_type == '4':
-    #     start_date = input("\nEnter the start date (format: DD/MM/YYYY): ")
-    #     end_date = input("\nEnter the end date (format: DD/MM/YYYY): ")
-    #     CustomDate = True
-    #     A = int(input('Enter the Last significant digits of the Client ID:\n'))
-    #     CustomDownload(BeginAt=A-1, start_date=start_date,
-    #                    end_date=end_date, CustomDate=CustomDate)
-
+    start_date = input("\nEnter the start date (format: DD/MM/YYYY): ")
+    end_date = input("\nEnter the end date (format: DD/MM/YYYY): ")
+    current_date = datetime.now().date()
+    current_date= current_date.strftime("%d/%m/%Y")
+    if start_date > current_date or end_date > current_date or start_date>end_date:
+        print("\nPlease enter a valid date.")
     else:
-        print('\nChoose a valid option')
-        raise SystemExit
+        CustomDate = True
+        A =int(input('\nEnter the Client ID: '))
+        if len(str(A))>8:
+            print('\nInvalid Client ID. Please try again')
 
-    print('\nDownload complete succesfully')
-    print(datetime.now())
+        RegularDownload(BeginAt=A, start_date=start_date,
+                        end_date=end_date, CustomDate=CustomDate)
+        print('\nDownload complete succesfully')
 
 
 if __name__ == '__main__':
