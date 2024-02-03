@@ -68,25 +68,28 @@ def RegularDownload(BeginAt, start_date, end_date, CustomDate):
     for key in client_dict.keys():
         id_list.append(key)
 
-    chunk(BeginAt=BeginAt, end=id_list[-1], client_dict=client_dict,
+    chunk(BeginAt=BeginAt, end=int(id_list[-1])+1, client_dict=client_dict,
           start_date=start_date, end_date=end_date, CustomDate=CustomDate)
 
 
 def choice():
     start_date = input("\nEnter the start date (format: DD/MM/YYYY): ")
+    start_date= datetime.strptime(start_date, "%d/%m/%Y").date()
     end_date = input("\nEnter the end date (format: DD/MM/YYYY): ")
+    end_date= datetime.strptime(end_date, "%d/%m/%Y").date()
     current_date = datetime.now().date()
-    current_date= current_date.strftime("%d/%m/%Y")
     if start_date > current_date or end_date > current_date or start_date>end_date:
         print("\nPlease enter a valid date.")
     else:
         CustomDate = True
+        start_date=start_date.strftime("%d/%m/%Y")
+        end_date=end_date.strftime("%d/%m/%Y")
         A =int(input('\nEnter the Client ID: '))
-        if len(str(A))>8:
+        if len(str(A))!=8:
             print('\nInvalid Client ID. Please try again')
 
-        RegularDownload(BeginAt=A, start_date=start_date,
-                        end_date=end_date, CustomDate=CustomDate)
+        RegularDownload(BeginAt=A, start_date=str(start_date),
+                        end_date=str(end_date), CustomDate=CustomDate)
         print('\nDownload complete succesfully')
 
 
