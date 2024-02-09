@@ -44,8 +44,8 @@ def chunk(BeginAt, end, client_dict, start_date, end_date, CustomDate):
     Bot = Features()
     Bot.login()
     for i in range(BeginAt, end):
-        Bot.FactSheet(client_id=i)
-        Bot.CurrentPortfolio(client_id=i)
+        Bot.FactSheet(client_id=i,end_date=end_date)
+        Bot.CurrentPortfolio(client_id=i,end_date=end_date)
         Bot.TransactionStatement(
             client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
         Bot.BankBook(client_id=i, start_date=start_date,

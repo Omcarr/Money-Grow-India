@@ -66,13 +66,22 @@ class Features():
         cursor.click()
 
     #Can't be custom dated
-    def FactSheet(self, client_id):
+    def FactSheet(self, client_id,end_date):
         # click on reports
         cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[1]/div/ul/li[3]/a')))
         cursor.click()
 
         # Report Factsheet is by default selected
+
+        #as on date option here
+        cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+            (By.XPATH, '//*[@id="toDateUI"]')))
+        cursor.clear()
+        cursor.send_keys(Keys.ENTER)
+        cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+            (By.XPATH, '//*[@id="toDateUI"]')))
+        cursor.send_keys(end_date)
 
         # click on scope dropdown list
         cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
@@ -105,9 +114,8 @@ class Features():
             cursor.click()
         except:
             pass
-    
-    #Can't be custom dated
-    def CurrentPortfolio(self, client_id):
+   
+    def CurrentPortfolio(self, client_id,end_date):
         cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[1]/div/ul/li[3]/a')))
         cursor.click()
@@ -119,6 +127,17 @@ class Features():
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[3]')))
         report.click()
+
+        #clear the date
+        report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+            (By.XPATH, '//*[@id="toDateUI"]')))
+        report.clear()
+        report.send_keys(Keys.ENTER)
+
+        report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+            (By.XPATH, '//*[@id="toDateUI"]')))
+        report.send_keys(end_date)
+
         cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '//*[@id="myTabContent"]/div/div[5]/div/div[1]')))
         cursor.click()
@@ -146,7 +165,6 @@ class Features():
         except:
             pass
 
-    #All remaining 5 types can be custom dated
     def TransactionStatement(self, client_id, start_date, end_date, CustomDate):
         cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[1]/div/ul/li[3]/a')))
