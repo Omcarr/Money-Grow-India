@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from Secure import Url, login_id, pass_word, download_loc
+import time
 
 class Features():
     def __init__(self):
@@ -61,18 +62,29 @@ class Features():
         cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '//*[@id="myTabContent"]/div/div[7]/div/button')))
         cursor.click()
+        time.sleep(10)
         cursor = WebDriverWait(self.driver, 100).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/table/tbody/tr/td[3]/a')))
         cursor.click()
 
     #Can't be custom dated
     def FactSheet(self, client_id,end_date):
-        # click on reports
+        # # click on reports
+        # cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+        #     (By.XPATH, '/html/body/div[2]/form/div[1]/div[1]/div/ul/li[3]/a')))
+        # cursor.click()
         cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[1]/div/ul/li[3]/a')))
         cursor.click()
+        report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+            (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div')))
+        report.click()
 
         # Report Factsheet is by default selected
+        report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+            (By.XPATH, ' /html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/div/input')))
+        report.send_keys('Portfolio Fact Sheet')
+        report.send_keys(Keys.ENTER)
 
         #as on date option here
         cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
@@ -122,11 +134,16 @@ class Features():
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div')))
         report.click()
+
         # report dropdown
 
+        # report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+        #     (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[3]')))
+        # report.click()
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
-            (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[3]')))
-        report.click()
+            (By.XPATH, ' /html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/div/input')))
+        report.send_keys('Current Portfolio')
+        report.send_keys(Keys.ENTER)
 
         #clear the date
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
@@ -172,10 +189,15 @@ class Features():
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div')))
         report.click()
+
         # report dropdown
+        # report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+        #     (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[5]'))) #4--->5
+        # report.click()
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
-            (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[4]')))
-        report.click()
+            (By.XPATH, ' /html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/div/input')))
+        report.send_keys('Transaction Statement')
+        report.send_keys(Keys.ENTER)
      
         if CustomDate==True:
         # DATE setter
@@ -227,9 +249,13 @@ class Features():
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div')))
         report.click()
         # report dropdown
+        # report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+        #     (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[6]'))) #5-->6
+        # report.click()
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
-            (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[5]')))
-        report.click()
+            (By.XPATH, ' /html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/div/input')))
+        report.send_keys('Bank Book')
+        report.send_keys(Keys.ENTER)
         
         if CustomDate==True:
             # DATE setter
@@ -281,10 +307,14 @@ class Features():
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div')))
         report.click()
-        # report dropdown
+        # # report dropdown
+        # report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+        #     (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[7]'))) #6-->7
+        # report.click()
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
-            (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[6]')))
-        report.click()
+            (By.XPATH, ' /html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/div/input')))
+        report.send_keys('Statement of Dividend')
+        report.send_keys(Keys.ENTER)
         
         if CustomDate==True:
             # DATE setter
@@ -335,10 +365,14 @@ class Features():
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div')))
         report.click()
-        # report dropdown
+        # # report dropdown
+        # report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+        #     (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[8]'))) #7---->8
+        # report.click()
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
-            (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[7]')))
-        report.click()
+            (By.XPATH, ' /html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/div/input')))
+        report.send_keys('Statement of Expense')
+        report.send_keys(Keys.ENTER)
         
         if CustomDate==True:
             # DATE setter
@@ -390,10 +424,14 @@ class Features():
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
             (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div')))
         report.click()
-        # report dropdown
+        # # report dropdown
+        # report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+        #     (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[9]'))) #9---->10
+        # report.click()
         report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
-            (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[8]')))
-        report.click()
+            (By.XPATH, ' /html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/div/input')))
+        report.send_keys('Statement of Capital Gain/Loss')
+        report.send_keys(Keys.ENTER)
 
         if CustomDate==True:
             # DATE setter
@@ -437,5 +475,71 @@ class Features():
         except:
             pass
 
+    def StatenentOfInterest(self, client_id, start_date, end_date, CustomDate):
+            cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+                (By.XPATH, '/html/body/div[2]/form/div[1]/div[1]/div/ul/li[3]/a')))
+            cursor.click()
+            report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+                (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div')))
+            report.click()
+
+            # report dropdown
+            # report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+            #     (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/ul/li[5]'))) #4--->5
+            # report.click()
+            report = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+                (By.XPATH, ' /html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[3]/div/div/div/div/input')))
+            report.send_keys('Statement of Interest')
+            report.send_keys(Keys.ENTER)
+        
+            if CustomDate==True:
+            # DATE setter
+                cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+                    (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[4]/div/div[1]/input')))
+                cursor.clear()
+                cursor.send_keys(start_date)
+                cursor.send_keys(Keys.ENTER)
+
+                cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+                    (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[4]/div/div[2]/input')))
+                cursor.clear()
+                cursor.send_keys(end_date)
+                cursor.send_keys(Keys.ENTER)
+                # date setting ends
+
+            cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+                (By.XPATH, '//*[@id="myTabContent"]/div/div[5]/div/div[1]')))
+            cursor.click()
+            cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+                (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[5]/div/div[1]/select/option[5]')))
+            cursor.click()
+            cursor = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
+                (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[5]/div/div[2]/div/a/span[1]')))
+            cursor.click()
+            cursor = WebDriverWait(self.driver, 30).until(
+                EC.element_to_be_clickable((By.XPATH, '/html/body/div[10]/div/input')))
+            cursor.send_keys(client_id)
+            cursor = WebDriverWait(self.driver, 30).until(
+            EC.element_to_be_clickable((By.XPATH, '/html/body/div[10]/ul/li/div')))
+            cursor.click()
+        
+            
+
+            # Execute
+            cursor = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+                (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[12]/div/div[1]/button')))
+     
+            cursor.click()
+            try:
+                cursor = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(
+                    (By.XPATH, '/html/body/div[2]/form/div[1]/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[4]/a/i')))
+                cursor.click()
+            except:
+                pass
+
+
+
     def EndTask(self):
         self.driver.quit()
+
+

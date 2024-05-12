@@ -43,7 +43,7 @@ def PreDownload():
 def chunk(BeginAt, end, client_dict, start_date, end_date, CustomDate):
     Bot = Features()
     Bot.login()
-    for i in range(BeginAt, end):
+    for i in client_dict.keys(): #changedhere
         Bot.FactSheet(client_id=i,end_date=end_date)
         Bot.CurrentPortfolio(client_id=i,end_date=end_date)
         Bot.TransactionStatement(
@@ -56,6 +56,9 @@ def chunk(BeginAt, end, client_dict, start_date, end_date, CustomDate):
             client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
         Bot.CaptialGainLoss(
             client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+        Bot.StatenentOfInterest(
+        client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+
         time.sleep(5)
         move_files(source_folder=download_loc,
                    client_id=i, client_name=client_dict[i])
@@ -91,6 +94,31 @@ def choice():
         RegularDownload(BeginAt=A, start_date=str(start_date),
                         end_date=str(end_date), CustomDate=CustomDate)
         print('\nDownload complete succesfully')
+
+
+# #test function
+# def choice():
+#     Bot = Features()
+#     Bot.login()
+#     i=10210001
+#     start_date='05/04/2024'
+#     end_date='05/05/2024'
+#     CustomDate=True
+#     #Bot.FactSheet(client_id=i,end_date=end_date)
+#     # Bot.CurrentPortfolio(client_id=i,end_date=end_date)
+#     # Bot.TransactionStatement(
+#     #     client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+#     # Bot.BankBook(client_id=i, start_date=start_date,
+#     #                 end_date=end_date, CustomDate=CustomDate)
+#     # Bot.StatementOfDividend(
+#     #     client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+#     # Bot.StatementOfExpense(
+#     #     client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+#     # Bot.CaptialGainLoss(
+#     #     client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+#     Bot.StatenentOfInterest(
+#         client_id=i, start_date=start_date, end_date=end_date, CustomDate=CustomDate)
+
 
 
 if __name__ == '__main__':
