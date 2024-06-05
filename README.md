@@ -1,2 +1,2 @@
-Selenium pased python tool to retrive data from the wealthspectrum portfolio service
+Python based Selenium tool to retrive data from the wealthspectrum portfolio service
 
